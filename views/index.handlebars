@@ -1,0 +1,18 @@
+{{#each animalsWithImage}}
+<div class="card mx-auto my-2" style="width: 50%;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src={{image}} class="img-fluid h-100" alt="">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Name: </strong>{{animalname}}</h5>
+                <p class="card-text"><strong>Breed: </strong> {{speciesname}}</p>
+                <p class="card-text"><strong>Sex: </strong>{{sexname}}</p>
+                <p class="card-text"><strong>Location: </strong>{{location}}</p>
+                <a href="/{{id}}?url={{image}}" class="btn btn-primary">Adopt me!</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

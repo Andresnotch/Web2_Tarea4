@@ -1,0 +1,35 @@
+<div class="card mx-auto my-2 individual">
+    <img src={{image}} class="mx-auto header-img">
+    <h2 class="card-title text-center">{{animal.animalname}}</h2>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Breed:</b> {{animal.breedname}}</li>
+        <li class="list-group-item"><b>Species:</b> {{animal.speciesname}}</li>
+        <li class="list-group-item"><b>Sex:</b> {{animal.sexname}}</li>
+        <li class="list-group-item"><b>Age:</b> {{animal.animalage}}</li>
+        <li class="list-group-item"><b>Color:</b> {{animal.basecolour}}</li>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#adoptModal">Adopt me!</button>
+    </ul>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="adoptModal" tabindex="-1" aria-labelledby="adoptModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adoptModalLabel">Adopt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You're adopting {{animal.animalname}}, please write your user's id
+                so we can register you on our database.
+                </br></br>
+                Thank you for adopting! 
+                </br>
+                <input type="text">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <a href="http://localhost:3000/" class="btn btn-success">Adopt!</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.img-fluid {    
+    height: auto;
+    max-height: 300px;
+    width: auto;
+    object-fit: cover;
+}
+
+.header-img {
+    max-height: 500px;
+    max-width: 500px;
+    align-items: center;
+}
+
+.individual {
+    width: 90%;
+    max-width: 1000px;
+}
