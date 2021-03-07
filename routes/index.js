@@ -1,7 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const db = require('../db')
-
+const db = require('../db');
 const router = express.Router();
 
 /* GET home page. */
@@ -14,7 +13,9 @@ router.get('/', async function (req, res, next) {
                     data
                 }) {
                     const [cat] = data;
-                    const {url} = cat;
+                    const {
+                        url
+                    } = cat;
                     resolve(url);
                 }).catch(function (error) {
                     reject(error);
@@ -28,18 +29,28 @@ router.get('/', async function (req, res, next) {
                 ...animal,
                 image: urls[index]
             }));
-            res.render('index', {animalsWithImage});
+            res.render('index', {
+                animalsWithImage
+            });
         })
         .catch(function (errors) {
             res.send(`${errors}`)
         });
 });
 
-router.get('/:id', async function(req, res) {
-    const {id} = req.params;
+router.get('/:id', async function (req, res) {
+    const {
+        id
+    } = req.params;
     let animal = await db.getAnimalById(id);
-    const {url} = req.query;
-    res.render('animal', {animal, image: url})
+    const {
+        url
+    } = req.query;
+    res.render('animal', {
+        animal,
+        image: url
+    })
 });
+
 
 module.exports = router;

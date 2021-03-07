@@ -1,14 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var exphbs = require('express-handlebars')
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var express = require('express');
+var favicon = require('serve-favicon');
+const passport = require('passport');
+var createError = require('http-errors');
+var exphbs = require('express-handlebars')
+var cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+require('dotenv').config();
+require('./config/passport');
 
-var animalsRouter = require('./routes/animals');
 var usersRouter = require('./routes/users');
-var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var animalsRouter = require('./routes/animals');
+var indexRouter = require('./routes/index');
+var profileRouter = require('./routes/profile');
 
 var app = express();
 
@@ -17,12 +23,23 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: ['clave'] //clave para encriptar
+}))
+//inicializar passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/profile', profileRouter);
+app.use('/auth', authRouter);
 app.use('/animals', animalsRouter);
 app.use('/users', usersRouter);
 app.use('/', indexRouter);

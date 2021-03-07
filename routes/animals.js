@@ -11,31 +11,35 @@ const animalSchema = Joi.object({
   basecolour: Joi.string()
 })
 
-router.use(function(req, res, next) {
-  if(req.method == 'GET') next();
-  const { error, value } = animalSchema.validate(req.body);
-  if(error) {
+router.use(function (req, res, next) {
+  if (req.method == 'GET') next();
+  const {
+    error,
+    value
+  } = animalSchema.validate(req.body);
+  if (error) {
     console.log(error);
     res.status(400).send(error);
-  } 
-  else {
+  } else {
     next();
   }
 })
 
 
-router.get('/', async function(req, res) {
+router.get('/', async function (req, res) {
   try {
     let animals = await db.getAllAnimalsWithUser();
     res.send(animals);
   } catch (error) {
     res.send(error);
   }
-  
+
 });
 
-router.get('/:id', async function(req, res) {
-  const {id} = req.params;
+router.get('/:id', async function (req, res) {
+  const {
+    id
+  } = req.params;
   try {
     const animal = await db.getAnimalById(id);
     res.send(animal);
@@ -46,14 +50,21 @@ router.get('/:id', async function(req, res) {
 
 router.post('/', async function (req, res) {
   const newAnimal = req.body;
-  const resp = await db.insertAnimal(newAnimal);
-  newAnimal.id = resp.rows[0].id;
-  res.send(newAnimal);
+  try {
+    const resp = await db.insertAnimal(newAnimal);
+    newAnimal.id = resp.rows[0].id;
+    res.send(newAnimal);
+
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 
 router.put('/:id', async function (req, res) {
-  const {id} = req.params;
+  const {
+    id
+  } = req.params;
   const animal = req.body;
   try {
     const resp = await db.updateAnimal(id, animal);
@@ -65,7 +76,9 @@ router.put('/:id', async function (req, res) {
 });
 
 router.delete('/:id', async function (req, res) {
-  const {id} = req.params;
+  const {
+    id
+  } = req.params;
 
   try {
     const resp = await db.deleteAnimal(id);

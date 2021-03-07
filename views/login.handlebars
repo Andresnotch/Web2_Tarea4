@@ -1,0 +1,21 @@
+<div class="card mx-auto py-2 login individual">
+  <h2 class="card-title text-center">Login</h2>
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control mx-2 my-2" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control mx-2 my-2" id="exampleInputPassword1">
+    </div>
+    <div class="form-group login-buttons">
+      <button type="button" class="btn btn-primary my-2 mx-2">Login</button>
+      <button type="button" class="btn btn-danger my-2 mx-2" id='google-login'>Login with Google</button>
+    </div>
+  </form>
+</div>
+<script>
+  const googleLogin = document.querySelector('#google-login');
+  googleLogin.addEventListener('click', () => window.location.replace('http://localhost:3000/auth/google'))
+</script>
