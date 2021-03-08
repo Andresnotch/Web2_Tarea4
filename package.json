@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -18,9 +18,9 @@
     "joi": "^17.4.0",
     "less-middleware": "^3.1.0",
     "morgan": "~1.9.1",
+    "nodemon": "^2.0.7",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
-    "pg": "^8.5.1",
-    "serve-favicon": "^2.5.0"
+    "pg": "^8.5.1"
   }
 }

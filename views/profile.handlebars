@@ -1,8 +1,8 @@
 <div class="card mx-auto my-2 individual">
-    <h2 class="card-title text-center">User</h2>
+    <img src={{profile.photo}} class="mx-auto header-img">
+    <h2 class="card-title text-center">{{profile.name}}</h2>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item"><b>Breed:</b> asd</li>
-        <li class="list-group-item"><b>Species:</b> asd</li>
-        <li class="list-group-item"><b>Sex:</b> asd</li>
+        <li class="list-group-item"><b>Mail: </b>{{profile.email}}</li>
+        <li class="list-group-item"><b>Last Login: </b>{{profile.timestamp}}</li>
     </ul>
 </div>

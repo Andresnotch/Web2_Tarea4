@@ -1,27 +1,27 @@
 const express = require('express');
 const passport = require('passport');
+let users = require('../data/users.json');
+const fs = require('fs');
 const router = express.Router();
 
-
-router.get('/login', (_, res) => {
-    res.render('login');
-});
 
 router.get('/google', passport.authenticate('google', {
     scope: ['profile', 'email']
 }));
 
-router.get('/google/login', (req, res) => {
+router.get('/login', async function (_, res) {
+    res.render('login');
+});
+
+router.get('/google/login', async function (req, res) {
     res.send("Texto login");
 });
 
-router.get('/google/redirect', (req, res) => {
-    res.send("Texto redirect");
+router.get('/google/redirect', async function (req, res) {
+    console.log(req.query.code);
+    res.redirect('/');
 });
 
-router.get('/logout', (req, res) => {
-    res.send("Texto logout")
-})
 
 router.get(
     '/google/callback',
@@ -29,10 +29,39 @@ router.get(
         failureRedirect: '/login'
     }),
     function (req, res) {
-        console.log("Request");
-        console.log(req);
-        res.redirect('/');
+        const profile = req.user
+        const currentUser = users.find(element => element.id = profile.id);
+
+        if (currentUser) {
+            res.set('user', currentUser)
+            res.redirect('/profile');
+        } else {
+            let new_user = {
+                id: users.length + 1,
+                id: profile.id,
+                name: profile.displayName,
+                timestamp: new Date(),
+                email: profile.emails[0].value,
+                photo: profile.photos[0].value
+            };
+            users.push(new_user);
+            fs.writeFile('./data/users.json', JSON.stringify(users), function (err, data) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+            res.set('user', new_user)
+            res.redirect('/profile');
+
+        }
     }
 );
+
+router.get('/logout', async function (req, res) {
+    req.session = null;
+    req.user = null;
+    res.redirect('/');
+});
+
 
 module.exports = router;

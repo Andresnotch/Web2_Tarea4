@@ -26,7 +26,7 @@ async function getAllAnimalsWithUser() {
                                     FROM ANIMALS A, USERS U WHERE A.USER_ID = U.USER_ID')
         return res.rows
     } catch (error) {
-        return animal_data
+        return animal_data.slice(0, 20)
     }
 }
 
